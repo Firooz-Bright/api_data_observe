@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Recipe</title>
+</head>
+<body>
+	<h1> Create a Recipe </h1>
+	<p><%= @error %></p>
+<form action="/recipes" method="POST">
+<label>Title</label>	
+<input type="text" name="title">
+<label>Method</label>	
+<textarea name="method"></textarea> 
+<label>Image</label>	
+<input type="text" name="image">
+<button type="submit"> Add Recipe </button> 
+
+ </form>
+</body>
+
+
+</html>

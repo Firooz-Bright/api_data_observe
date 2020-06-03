@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+  <h1> <%= @recipe.title %></h1>
+   <h1> <%= @recipe.method%></h1>
+<img src="<%= @recipe.image %>"  alt="recipe" >
+   <form action="/recipes/<%= @recipe.id %>" method="POST">
+   	<input type="hidden" name="_method" value="delete">
+   	<button>Delete Recipe</button>
+
+   </form> 
+
+</body>
+</html>
