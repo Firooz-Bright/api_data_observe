@@ -12,11 +12,12 @@ post '/login' do
 
     	 erb :'users/login'
 
-    elsif  @user=User.find_by(username: params[:username], password: params[:password])
+    elsif  @user=User.find_by(username: params[:username]) 
 
              session[:user_id] = @user.id
              redirect '/recipes'
-     else 
+     else
+      
      	@error ="Account not found "
      	  erb :'users/login'
 

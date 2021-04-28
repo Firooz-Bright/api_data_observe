@@ -1,24 +1,39 @@
 class RecipesControllers < ApplicationController
 
-
 	#CREATE 
 
+#before do 
+  #require_login 
+#end 
+
     get'/recipes/new' do 
-     erb :new 
-    end 
+       @ingredients = Ingredient.all
+       erb :new                                # if logged_in?
+    end                                        #erb :new 
+                                              #else 
+                                              #redirect '/login'
+                                              #end 
+    
     
     post'/recipes' do 
+       
+    	 @recipe= current_user.recipes.build(params["recipe"])
     	
-    	@recipes=Recipe.create(params)
+       if ingredient= Ingredient.find_by(name: params["ingredient"]["name"])
+        @recipe.ingredients << ingredient
+
+      else 
+         @recipe.ingredients.build(params["ingredient"])
+      end 
+
+     if 	               #!@recipes.title.empty? && !@recipes.method.empty? # we did the validation 
+         @recipe.save 
     	
-    if 	!@recipes.title.empty? && !@recipes.method.empty?
-         @recipes.save 
-    	
-       redirect '/recipes' #take the user to the recipes index page 
+       redirect '/recipes' 
 
       else 
           @error ="Data Invalid Please Enter a Valid Data"
-      	  erb :new              #rerender the form 
+      	  erb :new              
      end 
     end 
 
@@ -26,29 +41,32 @@ class RecipesControllers < ApplicationController
 	#READ
 
     get'/recipes' do 
-      
-      @recipes = Recipe.all
-      erb :index   
-    end 
+      require_login 
+      @recipes = Recipe.all.reverse 
+      erb :index 
+     
+   end 
 
 
    get '/recipes/:id'  do 
-
-   	 @recipe= Recipe.find(params[:id])
-
-    erb :show
+    
+   	 @recipe= Recipe.find_by(id: params[:id])
+     if @recipe 
+       erb :show
+     else 
+      redirect '/recipes'
+     end 
    end 
 
 
 	#UPDATE 
 
  get '/recipes/:id/edit'  do 
-    
-  @recipe=Recipe.find(params[:id])
-
-  erb :edit 
-
+  
+   @recipe= Recipe.find(params[:id])
+   erb :edit 
 end 
+
 
 patch '/recipes/:id' do 
     
@@ -71,7 +89,6 @@ end
     recipe = Recipe.find(params[:id])
     recipe.destroy
     redirect '/recipes'
-
    end #DESTROY 
 
 end 

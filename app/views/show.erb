@@ -7,10 +7,18 @@
   <h1> <%= @recipe.title %></h1>
    <h1> <%= @recipe.method%></h1>
 <img src="<%= @recipe.image %>"  alt="recipe" >
+
+<h1>Ingredients</h1>
+ <ul>
+   <% @recipe.ingredients.each do |ingredient| %>
+   <li> <%=ingredient.name %></li>
+   <%end%>
+ </ul>
    <form action="/recipes/<%= @recipe.id %>" method="POST">
    	<input type="hidden" name="_method" value="delete">
+   	<% if  @recipe.user == current_user %>
    	<button>Delete Recipe</button>
-
+     <% end %>
    </form> 
 
 </body>

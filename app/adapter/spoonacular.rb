@@ -13,24 +13,18 @@ module Spoonacular
         
         recipes["results"].each do |recipe| 
 
-      		
+         @recipe = Recipe.new( title: recipe["title"], image: recipe["image"])
 
-        @recipe = Recipe.new( title: recipe["title"], image: recipe["image"])
+          ingredients = recipe["missedIngredients"].each do |ingredient| 
+ 
+        	   @ingredient = Ingredient.find_or_create_by(name: ingredient["name"] ,image: ingredient["image"])
 
-          
-
-         #ingredient = recipe["missedIngredients"].each do |ingredient| 
-
-        	#@ingredient= Ingredient.find_or_create_by(name: ingredient["name"] ,image: ingredient["image"])
-
-        	   #@recipe.ingredient << @ingredient
-
-        	    #binding.pry
+        	   @recipe.ingredients << @ingredient
+        	   end 
         	   @recipe.save 
-        	 
-             #end 
+        	   #end 
            end 
-      	end 
-	   end 
+      	 end 
+	    end 
 
 end 

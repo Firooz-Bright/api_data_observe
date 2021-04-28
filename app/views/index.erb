@@ -1,18 +1,25 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 	<title> </title>
 </head>
 <body>
+	<div>
  <h1> Recipes </h1>
 <h2> <a href="/recipes/new"> Create your own Recipe </a></h2>
  <%  @recipes.each do |recipe|  %>
 
  <h2> <a href= "/recipes/<%= recipe.id %>"> <%= recipe.title %> </a> </h2>
- <h3><%= recipe.method %></h3>
+ <h3> <%= recipe.method %></h3>
  <img src="<%= recipe.image %>" alt= "recipe"> 
- <a href="/recipes/<%= recipe.id %>/edit"> Edit Recipe </a>
-
+ </div>
+ 
+ <div>
+ <%= recipe.ingredients.map{|ingredient| ingredient.name}.join(',') %>
+</div>
+    <% if  current_user == recipe.user %>
+        <a href="/recipes/<%= recipe.id %>/edit"> <button>Edit Recipe</button> </a>
+    <% end %>
  <% end %> 
 
 </body>

@@ -5,9 +5,9 @@
 <label>Title</label>	
 <input type="text" name="recipe[title]" value="<%=@recipe.title%>">
 <label>Method</label>	
-<textarea name= "recipe[method]"> <%=@recipe.method%> </textarea> 
+<textarea name= "recipe[method]"> <%= @recipe.method%> </textarea> 
 <label>Image</label>	
-<input type="text" name="recipe[image]" value="<%=@recipe.image%>">
+<input type="text" name="recipe[image]" value="<%= @recipe.image%>">
 <button type="submit"> Edit Recipe </button> 
 
  </form>
