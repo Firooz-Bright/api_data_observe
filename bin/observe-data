@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+#require_relative '../lib/observe_data'
+require 'rest-client'
+require 'open-uri'
+require "bundler/setup"
+
+require_relative "../lib/observe_data/observe_data"
+#require "observe_data"
+
+#load './lib/observe_data'
+puts "This should work "
+
+ObserveData.new.fetch_vin
